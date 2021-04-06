@@ -101,13 +101,15 @@ async function showResult(res) {
 	if (result === 'draw') {
 		announcement.textContent = 'Draw!';
 	} else {
-		let winner;
+		let winner, other;
 
 		if (result === 'player1') {
 			winner = game.players.find((p) => p.state.player1);
+			other = game.players.find((p) => !p.state.player1);
 			winner.state.score++;
 		} else {
 			winner = game.players.find((p) => !p.state.player1);
+			other = game.players.find((p) => p.state.player1);
 			winner.state.score++;
 		}
 
@@ -120,6 +122,9 @@ async function showResult(res) {
 	await wait(4);
 	announcement.classList.add('hidden');
 	announcement.classList.remove(result);
+
+	game.players[0].state.isPlaying = !game.players[0].state.isPlaying;
+	game.players[1].state.isPlaying = !game.players[1].state.isPlaying;
 
 	newGame();
 }
@@ -236,9 +241,8 @@ function newGame(reset = false) {
 	game._playerWins = false;
 	game.players[0].state.player1 = true;
 	game.players[1].state.player1 = false;
-	game.players[0].state.isPlaying = true;
-	game.players[1].state.isPlaying = false;
-	game.players[current].state.picks = [];
+	game.players[0].state.picks = [];
+	game.players[1].state.picks = [];
 	game.boxes = [];
 	game.turns = 0;
 	game.room = game.players[current].roomID;
