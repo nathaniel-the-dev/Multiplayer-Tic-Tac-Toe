@@ -9,7 +9,7 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 // Variables
-const port = 3000 || process.env.PORT;
+const port = process.env.PORT || 3000;
 
 // Serve static files
 app.use(express.static(`${__dirname}/public`));
