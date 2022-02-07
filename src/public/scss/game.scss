@@ -1,0 +1,64 @@
+.board {
+	text-align: center;
+
+	margin: 0 auto;
+	width: calc(clamp(15rem, 50%, 25rem));
+	aspect-ratio: 1;
+	padding: 0.25rem;
+
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.5rem;
+
+	position: relative;
+	z-index: 1;
+
+	overflow: hidden;
+
+	transition: opacity 0.4s ease;
+
+	.tile {
+		background: hsl(0, 0%, 25%);
+		border: none;
+		border-radius: 0.5rem;
+		outline: none;
+
+		font-size: 6rem;
+		line-height: 0;
+
+		width: 100%;
+		aspect-ratio: 1;
+
+		transition: background 0.4s ease, opacity 0.4s ease, transform 0.1s ease;
+
+		cursor: pointer;
+
+		&:hover:not(:disabled) {
+			background: #777;
+		}
+
+		&:focus {
+			transform: scale(1.05);
+			background: #777;
+		}
+
+		&:active {
+			transform: scale(0.95);
+		}
+
+		&:disabled {
+			background: #111;
+			color: #ccc;
+			cursor: auto;
+		}
+	}
+
+	&[data-show-board='false'] {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	@media (max-width: 768px) {
+		gap: 0.25rem;
+	}
+}

@@ -6,25 +6,18 @@ const joinBtn = document.getElementById('join--game');
 
 const createForm = document.querySelector('.create--form');
 const joinForm = document.querySelector('.join--form');
+const error = document.getElementById('error');
 
 const roomIDSpan = document.getElementById('room__id').querySelector('span');
 
-createForm.classList.add('hidden');
-joinForm.classList.add('hidden');
-
 function showError(message) {
-	const error = document.getElementById('error');
-
 	error.innerText = message;
-
-	error.classList.add('show');
-	error.classList.remove('hide');
-
-	setTimeout(() => {
-		error.classList.remove('show');
-		error.classList.add('hide');
-	}, 2000);
+	error.ariaHidden = false;
+	setTimeout(() => (error.ariaHidden = true), 2500);
 }
+
+// Show modal
+modalContainer.ariaHidden = false;
 
 // Client Socket
 const socket = io();
@@ -32,12 +25,12 @@ const socket = io();
 // Socket Events
 socket.on('error', showError);
 socket.on('message', (msg) => console.log(msg));
-socket.on('joined', (user) => {
+socket.on('joined', ({ player }) => {
 	// Show room id
-	roomIDSpan.textContent = user.roomID;
+	roomIDSpan.textContent = player.roomID;
 
 	// Hide modal
-	modalContainer.style.display = 'none';
+	modalContainer.ariaHidden = true;
 });
 
 // DOM Events
@@ -46,6 +39,8 @@ createBtn.addEventListener('click', () => {
 		createForm.classList.remove('hidden');
 		joinForm.classList.add('hidden');
 	}
+
+	createForm.querySelector('#hostname').focus();
 });
 
 joinBtn.addEventListener('click', () => {
@@ -53,16 +48,18 @@ joinBtn.addEventListener('click', () => {
 		joinForm.classList.remove('hidden');
 		createForm.classList.add('hidden');
 	}
+
+	joinForm.querySelector('#playername').focus();
 });
 
 createForm.addEventListener('submit', (e) => {
 	e.preventDefault();
 
 	// Get data
-	const username = createForm.querySelector('input').value;
+	const { hostname } = Object.fromEntries(new FormData(e.target));
 
 	// Create and join room
-	socket.emit('create room', username);
+	socket.emit('create room', hostname);
 
 	// Reset input field
 	createForm.querySelector('input').value = '';
@@ -72,12 +69,23 @@ joinForm.addEventListener('submit', (e) => {
 	e.preventDefault();
 
 	// Get data
-	const data = [];
-	joinForm.querySelectorAll('input').forEach((i) => data.push(i.value));
+	const { playername, roomID } = Object.fromEntries(new FormData(e.target));
 
 	// Try to join existing room
-	socket.emit('join room', data);
+	socket.emit('join room', { username: playername, roomID });
 
 	// Reset input field
 	joinForm.querySelectorAll('input').forEach((i) => (i.value = ''));
+});
+
+roomIDSpan.addEventListener('click', ({ target }) => {
+	navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
+		if (result.state == 'granted' || result.state == 'prompt') {
+			/* write to the clipboard now */
+			navigator.clipboard.writeText(target.innerText);
+
+			roomIDSpan.classList.add('copied');
+			roomIDSpan.nextElementSibling?.classList.replace('bi-clipboard', 'bi-clipboard-fill');
+		}
+	});
 });
