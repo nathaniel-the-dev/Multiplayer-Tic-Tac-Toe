@@ -25,5 +25,5 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 server.listen(port, () => console.log(`Server running at http://localhost:${port}...`));
 
 // Catching global errors (Part 2)
-process.on('unhandledRejection', errorController.handleUnhandledRejections);
-process.on('SIGTERM', errorController.processSIGTERM);
+process.on('unhandledRejection', errorController.handleUnhandledRejections(server));
+process.on('SIGTERM', errorController.processSIGTERM(server));

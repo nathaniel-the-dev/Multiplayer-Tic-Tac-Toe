@@ -24,7 +24,7 @@ exports.initSocket = (server) => {
 				// 4) Send the response
 				socket.emit('joined', { player });
 			} catch (err) {
-				socket.emit('error', err.message);
+				if (err) socket.emit('error', err.message);
 			}
 		});
 
@@ -58,10 +58,11 @@ exports.initSocket = (server) => {
 					io.to(room.id).emit('update players state', { players: room.players });
 				}
 			} catch (err) {
-				socket.emit('error', err.message);
+				if (err) socket.emit('error', err.message);
 			}
 		});
 
+		// When a player make a move
 		socket.on('player move', ({ roomID, move }) => {
 			try {
 				// 1) Get the corresponding player and room
@@ -79,12 +80,9 @@ exports.initSocket = (server) => {
 				// 3) Check if the player won
 				const result = room.currentGame.checkForWin(player);
 
-				if (!result) {
-					// 3.a) If no result, switch the players
-					room.switchActivePlayer();
-				} else {
+				if (result) {
 					if (result === 'player wins') {
-						// 3.b) If the player won, show result
+						// 3.a) If the player won, show result
 						player.state.score++;
 
 						io.to(room.id).emit('show result', {
@@ -100,13 +98,21 @@ exports.initSocket = (server) => {
 						io.to(room.id).emit('show result', { result: 'draw' });
 					}
 
-					room.startNewGame();
+					setTimeout(() => {
+						room.startNewGame();
+						io.to(room.id).emit('update game state', { game: room.currentGame });
+					}, 3000);
+				} else {
+					// 3.c) If no result, switch the players
+					room.switchActivePlayer();
+
+					io.to(room.id).emit('update game state', { game: room.currentGame });
 				}
 
-				io.to(room.id).emit('update players state', { players: room.players });
 				io.to(room.id).emit('update game state', { game: room.currentGame });
-			} catch (error) {
-				socket.emit('error', err.message);
+				io.to(room.id).emit('update players state', { players: room.players });
+			} catch (err) {
+				if (err) socket.emit('error', err.message);
 			}
 		});
 

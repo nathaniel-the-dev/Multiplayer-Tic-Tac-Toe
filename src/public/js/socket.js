@@ -8,12 +8,24 @@ const createForm = document.querySelector('.create--form');
 const joinForm = document.querySelector('.join--form');
 const error = document.getElementById('error');
 
-const roomIDSpan = document.getElementById('room__id').querySelector('span');
+const roomDataDiv = document.querySelector('#room-data');
+const roomCode = document.querySelector('#room-code');
+const roomCodeBtn = document.querySelector('.room-links > .btn.code');
+const roomLinkBtn = document.querySelector('.room-links > .btn.link');
 
 function showError(message) {
 	error.innerText = message;
 	error.ariaHidden = false;
 	setTimeout(() => (error.ariaHidden = true), 2500);
+}
+
+function copyToClipboard({ target }) {
+	navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
+		if (result.state == 'granted' || result.state == 'prompt') {
+			/* write to the clipboard now */
+			navigator.clipboard.writeText(target.value);
+		}
+	});
 }
 
 // Show modal
@@ -27,7 +39,12 @@ socket.on('error', showError);
 socket.on('message', (msg) => console.log(msg));
 socket.on('joined', ({ player }) => {
 	// Show room id
-	roomIDSpan.textContent = player.roomID;
+	roomDataDiv.ariaHidden = false;
+	roomCode.innerHTML = `Room ID: <span>${player.roomID}</span>`;
+
+	// Set room links
+	roomCodeBtn.value = player.roomID;
+	roomLinkBtn.value = `${location.href}?room=${player.roomID}`;
 
 	// Hide modal
 	modalContainer.ariaHidden = true;
@@ -78,14 +95,15 @@ joinForm.addEventListener('submit', (e) => {
 	joinForm.querySelectorAll('input').forEach((i) => (i.value = ''));
 });
 
-roomIDSpan.addEventListener('click', ({ target }) => {
-	navigator.permissions.query({ name: 'clipboard-write' }).then((result) => {
-		if (result.state == 'granted' || result.state == 'prompt') {
-			/* write to the clipboard now */
-			navigator.clipboard.writeText(target.innerText);
+[roomCodeBtn, roomLinkBtn].forEach((btn) => btn.addEventListener('click', copyToClipboard));
 
-			roomIDSpan.classList.add('copied');
-			roomIDSpan.nextElementSibling?.classList.replace('bi-clipboard', 'bi-clipboard-fill');
-		}
-	});
-});
+// Attempt to join room if 'RoomID' is present
+const query = new URLSearchParams(location.search);
+if (query.has('room')) {
+	const roomID = query.get('room');
+
+	joinForm.classList.remove('hidden');
+
+	joinForm.querySelector('#playername').focus();
+	joinForm.querySelector('#roomID').value = roomID;
+}

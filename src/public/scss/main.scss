@@ -77,46 +77,65 @@ main {
 			opacity: 0;
 		}
 
-		@media (max-width: 768px) {
+		@media (max-width: 55rem) {
 			top: 50%;
 			transform: translate(-50%, -50%);
 		}
 	}
 
-	#room__id {
+	#room-data {
+		color: #ccc;
+		font-size: 1.25rem;
 		text-align: center;
-		font-size: 1.5em;
-		font-weight: 700;
 
 		margin-top: 2rem;
 
-		user-select: none;
+		transition: opacity 0.4s ease;
 
-		span {
-			opacity: 0.7;
+		&[aria-hidden='true'] {
+			opacity: 0;
+			pointer-events: none;
+		}
 
-			transition: opacity 0.2s ease-out;
+		#room-code {
+			font-weight: 400;
 
-			user-select: text;
+			user-select: none;
+
+			span {
+				font-weight: 700;
+
+				user-select: all;
+			}
+		}
+
+		.room-links .btn {
+			background: #222;
+			border: 2px solid #555;
+			border-radius: 0.5rem;
+
+			color: #ccc;
+
+			margin-top: 0.5rem;
+			padding: 0.25rem;
+
+			transition: all 0.4s ease;
+
 			cursor: pointer;
 
-			& + .bi {
-				opacity: 0.7;
-				transition: opacity 0.2s ease-out;
-			}
-
-			&.copied {
-				opacity: 1;
-
-				& + .bi {
-					opacity: 1;
-				}
+			&:hover,
+			&:focus {
+				transform: scale(1.05);
+				filter: brightness(110%);
 			}
 		}
 	}
 }
 
 footer {
+	background: #111;
+
+	margin-top: 1rem;
 	width: 100%;
 	padding: 1rem;
 

@@ -7,7 +7,7 @@ const waitMessage = document.querySelector('.wait--message');
 const board = document.querySelector('.board');
 const tiles = document.querySelectorAll('.tile');
 
-function startNewGame() {
+function resetBoard() {
 	tiles.forEach((tile) => {
 		tile.disabled = false;
 		tile.textContent = '';
@@ -30,7 +30,7 @@ socket.on('game ready', (payload) => {
 	game = payload.game;
 
 	// Start game
-	startNewGame();
+	resetBoard();
 
 	// Update UI
 	board.dataset.showBoard = true;
@@ -81,7 +81,7 @@ socket.on('show result', (payload) => {
 		announcement.ariaHidden = true;
 		announcement.textContent = '';
 
-		startNewGame();
+		resetBoard();
 	}, 3000);
 });
 
@@ -89,7 +89,7 @@ socket.on('player left', () => {
 	console.log('A player left the game');
 
 	// Reset game values
-	startNewGame();
+	resetBoard();
 
 	// Reset UI
 	board.dataset.showBoard = false;
@@ -101,7 +101,7 @@ socket.on('player left', () => {
 // Handle game events
 tiles.forEach((tile) =>
 	tile.addEventListener('click', (e) => {
-		if (player.state?.isPlaying && game.isPlaying)
+		if (player.state.isPlaying && game.isPlaying)
 			socket.emit('player move', { roomID: player.roomID, move: +e.target.value });
 	})
 );

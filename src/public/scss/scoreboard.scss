@@ -9,6 +9,7 @@
 	justify-content: space-between;
 
 	.score {
+		background: #5554;
 		border-radius: 0.5rem;
 
 		font-size: 1.5rem;
@@ -19,6 +20,7 @@
 		padding: 0.25rem 0.5rem;
 
 		display: flex;
+		align-items: center;
 
 		transition: background 0.4s ease, transform 0.4s ease;
 
@@ -34,7 +36,7 @@
 		}
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 55rem) {
 		padding: 3rem 2rem;
 
 		position: absolute;
@@ -62,8 +64,12 @@
 		}
 	}
 
-	@media (max-width: 767px) {
+	@media (max-width: 55rem) {
 		max-width: 40rem;
+
+		.score {
+			text-align: center;
+		}
 
 		.score span[aria-label^='score']::before {
 			content: '(';
@@ -108,7 +114,7 @@
 		pointer-events: none;
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 55rem) {
 		font-size: 4rem;
 		padding: 2rem;
 	}
