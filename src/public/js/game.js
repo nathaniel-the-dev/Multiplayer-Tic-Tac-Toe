@@ -7,6 +7,10 @@ const waitMessage = document.querySelector('.wait--message');
 const board = document.querySelector('.board');
 const tiles = document.querySelectorAll('.tile');
 
+function disableBoard() {
+	tiles.forEach((tile) => (tile.disabled = true));
+}
+
 function resetBoard() {
 	tiles.forEach((tile) => {
 		tile.disabled = false;
@@ -76,6 +80,8 @@ socket.on('show result', (payload) => {
 
 	announcement.textContent = message;
 	announcement.ariaHidden = false;
+
+	disableBoard();
 
 	setTimeout(() => {
 		announcement.ariaHidden = true;
