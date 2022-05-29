@@ -92,8 +92,6 @@ socket.on('show result', (payload) => {
 });
 
 socket.on('player left', () => {
-	console.log('A player left the game');
-
 	// Reset game values
 	resetBoard();
 
