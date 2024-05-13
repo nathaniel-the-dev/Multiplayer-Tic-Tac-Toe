@@ -1,9 +1,34 @@
 class Player {
+	/**
+	 * The ID of the player
+	 * @type {string}
+	 */
 	id;
+
+	/**
+	 * The name of the player
+	 * @type {string}
+	 */
 	username;
+
+	/**
+	 * The ID of the room the player is in
+	 * @type {string}
+	 */
 	roomID;
+
+	/**
+	 * The player's state
+	 * @type {{player1: boolean, isPlaying: boolean, score: number, picks: string[]}}
+	 */
 	state;
 
+	/**
+	 * Constructs a new instance of the Player class.
+	 *
+	 * @param {type} playerId - the ID of the player
+	 * @param {type} username - the username of the player
+	 */
 	constructor(playerId, username) {
 		this.id = playerId;
 		this.username = username;

@@ -64,7 +64,7 @@ function createNewRoom(e) {
 	const { hostname } = Object.fromEntries(new FormData(e.target));
 
 	// Create and join room
-	socket.emit('create room', hostname);
+	socket.emit('create-room', hostname);
 
 	// Reset input field
 	createForm.querySelector('input').value = '';
@@ -77,7 +77,7 @@ function joinExistingRoom(e) {
 	const { playername, roomID } = Object.fromEntries(new FormData(e.target));
 
 	// Try to join existing room
-	socket.emit('join room', { username: playername, roomID });
+	socket.emit('join-room', { username: playername, roomID });
 
 	// Reset input field
 	joinForm.querySelectorAll('input').forEach((i) => (i.value = ''));

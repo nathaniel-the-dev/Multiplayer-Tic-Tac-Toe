@@ -10,11 +10,15 @@
     <meta name="description"
         content="A multiplayer game of Tic Tac Toe that can be played across the internet, made possible with Socket.io" />
 
+    <title>Tic Tac Toe with Friends</title>
+
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="/css/style.min.css" />
 
@@ -24,7 +28,6 @@
     <script src="/js/socket.js" defer></script>
     <script src="/js/game.js" type="module" defer></script>
 
-    <title>Tic Tac Toe with Friends</title>
 </head>
 
 <body>
@@ -41,15 +44,7 @@
                 <div class="panel intro">
                     <h1 class="heading">Welcome to <br> Tic Tac Toe Online </h1>
 
-                    <p>Play a game of Tic Tac Toe with a friend online</p>
-
-                    <button class="btn btn-start">Start Game</button>
-                </div>
-
-                <div class="panel start">
-                    <h1 class="heading">
-                        Play with a friend
-                    </h1>
+                    <p>Play Tic Tac Toe with your friends anytime, anywhere. Easy to learn, fun to play!</p>
 
                     <div class="button--controls">
                         <button class="btn btn-create" id="create--game" title="Create a game">

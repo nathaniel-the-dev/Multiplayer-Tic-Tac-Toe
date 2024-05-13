@@ -16,10 +16,21 @@ class Game {
 	isPlaying;
 	playerWins;
 
+	/**
+	 * Initializes a new instance of the class.
+	 *
+	 * @constructor
+	 */
 	constructor() {
 		this.startNewGame();
 	}
 
+	/**
+	 * Resets the game state and starts a new game.
+	 *
+	 * @param {none}
+	 * @return {none}
+	 */
 	startNewGame() {
 		this.turns = 0;
 		this.selectedTiles = [];
@@ -28,12 +39,24 @@ class Game {
 		this.playerWins = false;
 	}
 
+	/**
+	 * Save a move in the game.
+	 *
+	 * @param {any} move - The move to be saved.
+	 * @param {boolean} isPlayer1 - Indicates whether the move is made by player 1.
+	 */
 	saveMove(move, isPlayer1) {
 		this.turns++;
 		this.selectedTiles.push(move);
 		this.currentShape = isPlayer1 ? 'x' : 'o';
 	}
 
+	/**
+	 * Checks if the current player has won the game or if it's a draw.
+	 *
+	 * @param {Player} currentPlayer - The current player who made the move.
+	 * @return {string|boolean} The status of the game: "player wins", "draw", or false.
+	 */
 	checkForWin(currentPlayer) {
 		let status = false;
 

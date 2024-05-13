@@ -86,20 +86,20 @@ $tablet-breakpoint: 55rem;
 $laptop-breakpoint: 1024px;
 
 body {
-	color: #dcdcdc;
-	background: #000000;
+	color: var(--light-gray);
+	background: var(--very-dark-gray);
 
-	font-family: 'Nunito', Helvetica, sans-serif;
+	font-family: 'PT Sans', Helvetica, sans-serif;
 
 	overflow-x: hidden;
 }
 
 .heading {
-	color: #14151a;
+	color: var(--dark-gray);
 
 	text-transform: capitalize;
 
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Nunito', sans-serif;
 	font-size: 2.441rem;
 	font-weight: 700;
 
@@ -107,38 +107,42 @@ body {
 }
 
 .btn {
-	background-color: #000;
+	background-color: var(--very-dark-gray);
 	border: none;
 	border-radius: 0.25rem;
 
-	color: #fff;
+	color: var(--light-gray);
 	font-family: 'Montserrat', sans-serif;
 	text-transform: uppercase;
+	font-weight: 500;
 
 	padding: 0.75rem 1.5rem;
 	width: max-content;
 
 	display: inline-block;
 
-	will-change: transform;
-	transition: transform 0.3s ease;
+	// will-change: transform;
+	transition: all 0.5s ease;
 
 	cursor: pointer;
 
 	&.btn-outline {
-		background-color: #fff;
+		background-color: var(--light-gray);
 		outline: 2px solid currentColor;
 	}
 
 	&:hover,
 	&:focus {
-		transform: scale3d(1.05, 1.05, 1.05);
-		filter: brightness(110%);
+		scale: 1.05;
+	}
+
+	&:focus-visible {
+		outline: 1px solid var(--very-dark-gray);
 	}
 }
 
 header {
-	background-color: #14151a;
+	background-color: var(--dark-gray);
 
 	text-align: center;
 
@@ -154,7 +158,7 @@ header {
 	z-index: 99;
 
 	.heading {
-		color: #fff;
+		color: var(--light-gray);
 
 		@media (min-width: $laptop-breakpoint) {
 			font-size: 3.052rem;
@@ -174,7 +178,7 @@ main {
 	}
 
 	.wait--message {
-		color: #d9d9d9;
+		color: var(--light-gray);
 		font-size: 1.5rem;
 		text-align: center;
 		text-transform: capitalize;
@@ -199,7 +203,7 @@ main {
 	}
 
 	#room-data {
-		color: #ccc;
+		color: var(--light-gray);
 		font-size: 1.25rem;
 		text-align: center;
 
@@ -248,7 +252,7 @@ main {
 }
 
 footer {
-	background: #111;
+	background: var(--very-dark-gray);
 
 	margin-top: 1rem;
 	width: 100%;

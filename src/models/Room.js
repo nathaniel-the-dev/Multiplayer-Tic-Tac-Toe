@@ -1,28 +1,52 @@
 const uuid = require('uuid');
 
 const Game = require('./Game');
+const Player = require('./Player');
 
 class Room {
-	// Local properties
+	// Local
+	/** Room ID
+	 * @type {string}
+	 */
 	#roomID;
+
+	/**
+	 * Players in the room
+	 * @type {Player[]}
+	 */
 	players;
 
+	/** Current game
+	 * @type {Game}
+	 */
 	currentGame;
+
+	/**
+	 * Chat messages
+	 * @type {{senderId: string, message: string, createdAt: Date}[]}
+	 *
+	 */
+	chat = [];
 
 	get id() {
 		return this.#roomID;
 	}
 
+	/**
+	 * Constructor function for creating a new Room object.
+	 *
+	 * @constructor
+	 */
 	constructor() {
-		// Set room ID
+		// Sets a unique room ID
 		do this.#roomID = uuid.v4().slice(0, 7);
-		while (Room.ROOMS.some((r) => r.id === this.#roomID));
+		while (Room.ROOMS[this.id]);
 
 		// Initialize players
 		this.players = [];
 
 		// Add current room to global rooms
-		Room.ROOMS.push(this);
+		Room.ROOMS[this.#roomID] = this;
 	}
 
 	/**
@@ -30,7 +54,7 @@ class Room {
 	 * @returns {boolean}
 	 */
 	canStartGame() {
-		return this.players.length === Room.#MaxUsers;
+		return this.players.length === Room.#MAX_USERS;
 	}
 
 	/** Start a new game */
@@ -57,8 +81,8 @@ class Room {
 	}
 
 	// Static properties
-	static ROOMS = [];
-	static #MaxUsers = 2;
+	static ROOMS = {};
+	static #MAX_USERS = 2;
 
 	/**
 	 * Attempts to find a room by the given ID
@@ -71,10 +95,10 @@ class Room {
 	 * @returns {Room} The room object
 	 */
 	static FindRoom(roomID, isJoining = false) {
-		const room = Room.ROOMS.find((r) => r.id === roomID);
+		const room = Room.ROOMS[roomID];
 
 		if (!room) throw new Error('Room does not exist');
-		if ((room.players.length >= Room.#MaxUsers) & isJoining) throw new Error('Room is full');
+		if ((room.players.length >= Room.#MAX_USERS) & isJoining) throw new Error('Room is full');
 
 		return room;
 	}
@@ -84,8 +108,7 @@ class Room {
 	 * @param {string} roomID - The id of the room to delete
 	 */
 	static DeleteRoom(roomID) {
-		const index = Room.ROOMS.findIndex((r) => r.id === roomID);
-		index > -1 && Room.ROOMS.splice(index, 1);
+		if (Room.ROOMS[roomID]) delete Room.ROOMS[roomID];
 	}
 }
 

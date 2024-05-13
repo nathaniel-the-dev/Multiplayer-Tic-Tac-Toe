@@ -106,6 +106,6 @@ socket.on('player left', () => {
 tiles.forEach((tile) =>
 	tile.addEventListener('click', (e) => {
 		if (player.state.isPlaying && game.isPlaying)
-			socket.emit('player move', { roomID: player.roomID, move: +e.target.value });
+			socket.emit('player-move', { roomID: player.roomID, move: +e.target.value });
 	})
 );

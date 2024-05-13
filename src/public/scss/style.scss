@@ -2,3 +2,13 @@
 @import './_game.scss';
 @import './_modal.scss';
 @import './_scoreboard.scss';
+
+:root {
+	--color-player1: hsl(203, 73%, 46%);
+	--color-player2: hsl(6, 70%, 46%);
+
+	--very-dark-gray: #222831;
+	--dark-gray: #31363f;
+	--light-gray: #eeeeee;
+	--teal: #76abae;
+}
