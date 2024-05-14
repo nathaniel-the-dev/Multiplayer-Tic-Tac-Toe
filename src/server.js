@@ -21,6 +21,17 @@ initSocket(server);
 // Serve static files
 app.use(express.static(path.resolve(__dirname, 'public')));
 
+app.get('/', (req, res) => {
+	res.sendFile(path.resolve(__dirname, 'views', 'home.html'));
+});
+app.get('/game', (req, res) => {
+	res.sendFile(path.resolve(__dirname, 'views', 'game.html'));
+});
+
+app.all('*', (req, res) => {
+	res.status(404).sendFile(path.resolve(__dirname, 'views', '404.html'));
+});
+
 // Start server
 server.listen(port, () => console.log(`Server running at http://localhost:${port}...`));
 

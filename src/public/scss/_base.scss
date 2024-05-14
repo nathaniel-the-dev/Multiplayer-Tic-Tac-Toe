@@ -152,11 +152,6 @@ header {
 	display: grid;
 	place-items: center;
 
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 99;
-
 	.heading {
 		color: var(--light-gray);
 
