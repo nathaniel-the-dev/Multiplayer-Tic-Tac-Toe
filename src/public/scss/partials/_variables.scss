@@ -1,0 +1,19 @@
+@mixin button {
+	border: none;
+	border-radius: 0.25rem;
+	background-color: hsl(0, 0%, 20%);
+	color: hsl(0, 0%, 90%);
+	font-weight: 500;
+	padding: 0.5rem 1rem;
+}
+
+$tablet-breakpoint: 55rem;
+$laptop-breakpoint: 1024px;
+
+$color-player1: hsl(203, 73%, 46%);
+$color-player2: hsl(6, 70%, 46%);
+
+$very-dark-gray: #222831;
+$dark-gray: #31363f;
+$light-gray: #eeeeee;
+$teal: #76abae;

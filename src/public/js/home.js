@@ -1,8 +1,8 @@
 const socket = io();
 
 // DOM Cache
-const openCreateModalBtn = document.getElementById('button-modal_create');
-const openJoinModalBtn = document.getElementById('button-modal_join');
+const openCreateModalBtn = document.getElementById('modal__button--create');
+const openJoinModalBtn = document.getElementById('modal__button--join');
 
 const createModal = document.getElementById('modal_create');
 const joinModal = document.getElementById('modal_join');
