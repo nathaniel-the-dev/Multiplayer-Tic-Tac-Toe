@@ -31,20 +31,22 @@
 </head>
 
 <body>
-    <header class="header">
-        <h1 class="header__title">Tic Tac Toe Online</h1>
-    </header>
+
+    <h1 class="header__title">Tic Tac Toe Online</h1>
 
     <main class="content">
+
         <div class="introduction">
-            <h2 class="introduction__title">Tic Tac Toe</h2>
+            <h2 class="introduction__title">Get Ready for Fun 😆</h2>
             <p class="introduction__text">
                 Play Tic Tac Toe with your friends anytime, anywhere. Easy to learn, fun to play!
             </p>
+            <p class="introduction__text">Spin up a quick game
+                with your friends or meet someone new :)</p>
 
             <div class="introduction__buttons">
-                <button class="btn" id="modal__button--create">Create a game</button>
-                <button class="btn" id="modal__button--join">Join a game</button>
+                <button class="" id="modal__button--create">Create a game</button>
+                <button class="" id="modal__button--join">Join a game</button>
             </div>
         </div>
 
@@ -61,21 +63,27 @@
                             <button>Join</button>
                         </div>
                     </li>
-                    <li>
+                    <!-- <li>
                         <span>(locked icon)</span>
                         <span>Game 2</span>
                         <span>1 | 2 | 1</span>
                         <span>10:59</span>
                         <button>Spectate</button>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
 
-        <dialog class="" id="modal_create">
-            <h3>Create a Game</h3>
+        <dialog class="modal" id="modal--create">
+            <form method="dialog">
+                <button class="modal__button--close">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </form>
 
-            <form class="create--form" method="dialog">
+            <h3 class="modal__title">Create a Game</h3>
+
+            <form class="form--create" method="dialog">
                 <div>
                     <label for="hostname">Username</label>
                     <input name="hostname" id="hostname" type="text" class="username" required maxlength="20" />
@@ -103,10 +111,16 @@
             </form>
         </dialog>
 
-        <dialog class="" id="modal_join">
-            <h3>Join a Game</h3>
+        <dialog class="modal" id="modal--join">
+            <form method="dialog">
+                <button class="modal__button--close">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </form>
 
-            <form class="join--form" method="dialog">
+            <h3 class="modal__title">Join a Game</h3>
+
+            <form class="form--join" method="dialog">
                 <div>
                     <label for="playername">Username</label>
                     <input id="playername" name="playername" type="text" class="username" required maxlength="20" />
