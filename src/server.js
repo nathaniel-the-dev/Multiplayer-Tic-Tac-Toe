@@ -15,7 +15,7 @@ const app = express();
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
-// Intialize Socket.IO
+// Initialize Socket.IO
 initSocket(server);
 
 // Serve static files

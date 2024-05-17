@@ -1,10 +1,8 @@
-const socketio = require('socket.io');
-
 const Room = require('./models/Room');
 const Player = require('./models/Player');
 
 exports.initSocket = (server) => {
-	const io = socketio(server);
+	const io = require('socket.io')(server);
 
 	// Socket events
 	io.on('connection', (socket) => {
