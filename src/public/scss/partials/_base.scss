@@ -163,9 +163,9 @@ main {
 
 	position: relative;
 
-	@media (min-width: 1440px) {
-		aspect-ratio: 16 / 9;
-	}
+	// @media (min-width: 1440px) {
+	// 	aspect-ratio: 16 / 9;
+	// }
 
 	.wait--message {
 		color: $light-gray;
