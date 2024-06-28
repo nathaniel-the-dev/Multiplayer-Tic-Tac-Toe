@@ -1,0 +1,87 @@
+/* General */
+body {
+	--bulma-body-family: 'Nunito', sans-serif;
+	min-height: 100dvh;
+	position: relative;
+}
+
+/* Lobby */
+.lobby {
+	border-radius: 0.75rem;
+	background-color: #fff;
+	padding: 2rem;
+	padding-bottom: 4rem;
+	margin-top: 12.5vh;
+}
+
+.lobby__button {
+	border-radius: 0.5rem;
+
+	display: flex;
+
+	height: 15rem;
+	width: 100%;
+	padding: 1rem;
+
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+}
+
+.lobby__button::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background-image: linear-gradient(
+		to bottom right,
+		hsla(0, 0%, 0%, 0) 0%,
+		hsla(0, 0%, 0%, 0.013) 8.1%,
+		hsla(0, 0%, 0%, 0.049) 15.5%,
+		hsla(0, 0%, 0%, 0.104) 22.5%,
+		hsla(0, 0%, 0%, 0.175) 29%,
+		hsla(0, 0%, 0%, 0.259) 35.3%,
+		hsla(0, 0%, 0%, 0.352) 41.2%,
+		hsla(0, 0%, 0%, 0.45) 47.1%,
+		hsla(0, 0%, 0%, 0.55) 52.9%,
+		hsla(0, 0%, 0%, 0.648) 58.8%,
+		hsla(0, 0%, 0%, 0.741) 64.7%,
+		hsla(0, 0%, 0%, 0.825) 71%,
+		hsla(0, 0%, 0%, 0.896) 77.5%,
+		hsla(0, 0%, 0%, 0.951) 84.5%,
+		hsla(0, 0%, 0%, 0.987) 91.9%,
+		hsl(0, 0%, 0%) 100%
+	);
+	transition: all 0.5s ease-in-out;
+}
+
+.lobby__button img {
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.lobby__button p {
+	color: var(--white, #fff);
+	text-align: right;
+	font-weight: 600;
+	font-size: 2em;
+	margin-top: auto;
+	width: 100%;
+
+	transition: all 0.5s ease-in-out;
+}
+
+.lobby__button:hover p {
+	translate: 0 -1rem;
+}
+
+/* Footer */
+.page__footer {
+	position: fixed;
+	width: 100%;
+	bottom: 0.5rem;
+}

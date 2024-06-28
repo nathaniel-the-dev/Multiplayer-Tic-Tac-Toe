@@ -1,9 +1,9 @@
 const socketIO = require('socket.io');
 
-const GameController = require('./controllers/GameController');
+const GameController = require('../controllers/GameController');
 
-exports.initSocket = (server) => {
-	const io = socketIO(server);
+exports.initialize = (app) => {
+	const io = socketIO(app);
 
 	// Socket events
 	io.on('connection', (socket) => {

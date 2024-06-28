@@ -1,8 +1,7 @@
 // Imports
-const http = require('http');
 const path = require('path');
 
-const { initSocket } = require('./socket');
+const socket = require('./socket');
 const errorController = require('./controllers/ErrorController');
 
 const express = require('express');
@@ -10,30 +9,26 @@ const express = require('express');
 // Catching global errors
 process.on('uncaughtException', errorController.handleUncaughtExceptions);
 
-// Create and link server
+// Create server
 const app = express();
-const server = http.createServer(app);
 const port = process.env.PORT || 3000;
 
-// Initialize Socket.IO
-initSocket(server);
+// Set view engine
+app.set('view engine', 'ejs');
+app.set('views', path.resolve(__dirname, 'views'));
 
 // Serve static files
 app.use(express.static(path.resolve(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-	res.sendFile(path.resolve(__dirname, 'views', 'home.html'));
-});
-app.get('/game', (req, res) => {
-	res.sendFile(path.resolve(__dirname, 'views', 'game.html'));
-});
+// Routes
+app.use('/api', require('./routes/api'));
 
-app.all('*', (req, res) => {
-	res.status(404).sendFile(path.resolve(__dirname, 'views', '404.html'));
-});
+app.get('/', (_, res) => res.render('index'));
+app.all('*', (_, res) => res.status(301).redirect('/'));
 
 // Start server
-server.listen(port, () => console.log(`Server running at http://localhost:${port}...`));
+const server = app.listen(port, () => console.log(`Server running at http://localhost:${port}...`));
+socket.initialize(server);
 
 // Catching more global errors
 process.on('unhandledRejection', errorController.handleUnhandledRejections(server));

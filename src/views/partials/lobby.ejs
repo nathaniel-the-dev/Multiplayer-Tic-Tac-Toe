@@ -1,0 +1,61 @@
+<div class="lobby" x-data="lobby">
+    <header class="mb-6">
+        <h1 class="title">Tic Tac Toe</h1>
+        <p class="subtitle">Play online with your friends or spar with a random opponent.</p>
+    </header>
+
+    <!-- Step 1 - Join or Create -->
+    <div x-show="step === 1">
+        <div class="is-flex is-gap-4 is-align-items-center is-justify-content-space-between">
+            <button class="lobby__button" id="lobby__button--create" @click="createRoom">
+                <img src="https://picsum.photos/500/800" alt="">
+                <p>Create Room</p>
+            </button>
+            <button class="lobby__button" id="lobby__button--join" @click="joinRoom">
+                <img src="https://picsum.photos/500/800" alt="">
+                <p>Join Room</p>
+            </button>
+        </div>
+    </div>
+
+    <!-- Step 2 - Room -->
+    <div x-show="step === 2">
+        <form x-show="action === 'create'" class="lobby__form" @submit.prevent="setRoomInfo">
+            <p>Create a Room</p>
+
+            <div class="field">
+                <label class="label">Room Name</label>
+                <div class="control">
+                    <input class="input is-rounded" type="text" name="room_name" placeholder="eg. Winners Only" required
+                        x-model="roomInfo.room_name">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox" name="is_private" x-model="roomInfo.is_private" />
+                    Private
+                </label>
+            </div>
+
+            <div class="is-flex is-align-items-center is-justify-content-flex-end is-gap-2 mt-3">
+                <button class="button is-ghost" x-on:click="back" type="button">Back</button>
+                <button class="button is-primary" x-on:click="next" type="submit">Create Room</button>
+            </div>
+        </form>
+
+        <div x-show="action === 'join'">
+            <p>Join Room</p>
+
+            <ul class="menu-list">
+                <li class="menu-item" x-for="room in rooms" :key="room.id" @click="setRoomInfo(room)">
+                    <span class="button is-fullwidth">{{ room.name }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Step 3 - Username -->
+    <div x-show="step === 3"></div>
+</div>
